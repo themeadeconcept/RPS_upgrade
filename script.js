@@ -1,10 +1,55 @@
 const squirtle = document.getElementById("squirtle");
 const charmander = document.getElementById("charmander");
 const bulbasaur = document.getElementById("bulbasaur");
+const content = document.querySelector(".results-container");
 
-squirtle.addEventListener("click", playerSelection);
-charmander.addEventListener("click", playerSelection);
-bulbasaur.addEventListener("click", playerSelection);
+let playerCount = 0;
+let compCount = 0;
+
+squirtle.addEventListener("click", () => {
+  playerSelection = "squirtle";
+  computerSelection = computerPlay();
+  result = playRound(playerSelection, computerSelection);
+
+  results();
+});
+
+charmander.addEventListener("click", () => {
+  playerSelection = "charmander";
+  computerSelection = computerPlay();
+  result = playRound(playerSelection, computerSelection);
+
+  results();
+});
+
+bulbasaur.addEventListener("click", () => {
+  playerSelection = "bulbasaur";
+  computerSelection = computerPlay();
+  result = playRound(playerSelection, computerSelection);
+
+  results();
+});
+
+function results() {
+  if (result.includes("win") === true) {
+    playerCount++;
+  } else if (result.includes("lose") === true) {
+    compCount++;
+  }
+
+  content.innerHTML = `
+      <h1>${result}</h1>
+      <h2>Player score is ${playerCount}.  Computer score is ${compCount}!</h2>
+    `;
+
+  if (playerCount === 10) {
+    alert("FIRST TO 10!  YOU ARE THE POKEMON MASTER!");
+  }
+
+  if (compCount === 10) {
+    alert("Team ROCKET strikes AGAIN!  You are NOT a Pokemon master");
+  }
+}
 
 // Computer Choice Sequence
 function computerPlay() {
@@ -19,9 +64,8 @@ function computerPlay() {
   }
 }
 
-function playRound(playerSelection) {
-  let computerSelection = computerPlay();
-
+// Plays a round of the game
+function playRound(playerSelection, computerSelection) {
   if (playerSelection === "squirtle" && computerSelection === "charmander") {
     return "Squirtle uses Bubble!  You win!";
   } else if (
@@ -38,7 +82,7 @@ function playRound(playerSelection) {
     playerSelection === "charmander" &&
     computerSelection === "bulbasaur"
   ) {
-    return "Charmander uses Flamethrower!  That Bulbasaur is done!";
+    return "Charmander uses Flamethrower!  That Bulbasaur is done!  You win!";
   } else if (
     playerSelection === "charmander" &&
     computerSelection === "squirtle"
